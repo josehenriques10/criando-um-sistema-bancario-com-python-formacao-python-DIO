@@ -57,6 +57,15 @@ def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques
     
     return saldo, saque, numeros_saques, verificador
 
+def extrato_bancario():
+
+    print('EXTRATO...\n')
+
+    for transacao in extrato:
+        print(f'{transacao}')
+        
+    print(f'\n')
+
 while True:
 
     print(f'Saldo: R$ {saldo:.2f}')
@@ -75,12 +84,7 @@ while True:
             extrato.append(f'- R$ {saque:.2f}')
 
     elif opcao == 'E' or opcao == 'e':
-        print('EXTRATO...\n')
-
-        for transacao in extrato:
-            print(f'{transacao}')
-        
-        print(f'\n')
+        extrato_bancario()
 
     elif opcao == 'Q' or opcao == 'q':
         break
