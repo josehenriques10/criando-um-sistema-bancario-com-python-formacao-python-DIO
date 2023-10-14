@@ -15,7 +15,7 @@ verificador = 0
 LIMITE_DESAQUES = 3
 LIMITE_DOSAQUE = 500
 
-def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verificador):
+def atualiza_saldo_deposito(saldo, deposito, verificador):
 
     deposito = int(input('R$ '))
 
@@ -29,7 +29,7 @@ def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verifica
 
     return saldo, deposito, verificador
 
-def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques, verificador=verificador):
+def atualiza_saldo_saque(saldo, saque, numeros_saques, verificador):
 
     saque = int(input('R$ '))
     
@@ -72,13 +72,13 @@ while True:
     opcao = input(menu)
 
     if opcao == 'D' or opcao == 'd':
-        saldo, deposito, verificador = atualiza_saldo_deposito(saldo, deposito, verificador)
+        saldo, deposito, verificador = atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verificador)
 
         if verificador == 1:
             extrato.append(f'+ R$ {deposito:.2f}')
 
     elif opcao == 'S' or opcao == 's':
-        saldo, saque, numeros_saques, verificador = atualiza_saldo_saque(saldo, saque, numeros_saques, verificador)
+        saldo, saque, numeros_saques, verificador = atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques, verificador=verificador)
 
         if verificador == 1:
             extrato.append(f'- R$ {saque:.2f}')
