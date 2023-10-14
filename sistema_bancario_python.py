@@ -4,7 +4,7 @@ menu = '''
 [E] Extrato
 [Q] Sair
 
-'''
+? '''
 
 saldo = 0
 deposito = 0
@@ -83,7 +83,7 @@ while True:
         for transacao in extrato:
             print(f'{transacao}')
         
-        print(f'Saldo: R$ {saldo}\n')
+        print(f'\n')
 
     elif opcao == 'Q' or opcao == 'q':
         break
