@@ -65,13 +65,13 @@ while True:
         saldo, deposito, verificador = atualiza_saldo_deposito(saldo, deposito, verificador)
 
         if verificador == 1:
-            extrato.append(f'+{deposito:.2f}')
+            extrato.append(f'+ R$ {deposito:.2f}')
 
     elif opcao == 'S' or opcao == 's':
         saldo, saque, numeros_saques, verificador = atualiza_saldo_saque(saldo, saque, numeros_saques, verificador)
 
         if verificador == 1:
-            extrato.append(f'-{saque:.2f}')
+            extrato.append(f'- R$ {saque:.2f}')
 
     elif opcao == 'E' or opcao == 'e':
         print('EXTRATO...\n')
