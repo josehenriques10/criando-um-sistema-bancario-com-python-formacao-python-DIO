@@ -15,7 +15,6 @@ verificador = 0
 LIMITE_DESAQUES = 3
 LIMITE_DOSAQUE = 500
 
-
 def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verificador):
 
     deposito = int(input('R$ '))
@@ -29,7 +28,6 @@ def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verifica
         verificador = 0
 
     return saldo, deposito, verificador
-
 
 def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques, verificador=verificador):
 
@@ -58,7 +56,6 @@ def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques
         print(f'Saque de R$ {saque} realizado com sucesso.')
     
     return saldo, saque, numeros_saques, verificador
-
 
 while True:
 
