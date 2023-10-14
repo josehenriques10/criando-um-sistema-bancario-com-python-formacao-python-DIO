@@ -19,8 +19,14 @@ LIMITE_DOSAQUE = 500
 def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verificador):
 
     deposito = int(input('R$ '))
-    saldo += deposito
-    verificador = 1
+
+    if deposito >= 100:
+        saldo += deposito
+        verificador = 1
+    
+    else:
+        verificador = 0
+        print('O valor mínimo para se fazer um depósito de R$ 100,00.')
 
     return saldo, deposito, verificador
 
