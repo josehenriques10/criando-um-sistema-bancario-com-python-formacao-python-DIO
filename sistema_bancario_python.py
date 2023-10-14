@@ -26,7 +26,7 @@ def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verifica
     
     else:
         verificador = 0
-        print('O valor mínimo para se fazer um depósito de R$ 100,00.')
+        print('O valor mínimo para se fazer um depósito é de R$ 100,00.')
 
     return saldo, deposito, verificador
 
