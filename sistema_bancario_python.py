@@ -25,8 +25,8 @@ def atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verifica
         verificador = 1
     
     else:
-        verificador = 0
         print('O valor mínimo para se fazer um depósito é de R$ 100,00.')
+        verificador = 0
 
     return saldo, deposito, verificador
 
@@ -37,13 +37,8 @@ def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques
     
     if saque <= 0:
         print('O valor que você está tentando sacar e inválido.')
+        verificador = 0
     
-    elif numeros_saques < LIMITE_DESAQUES and saque <= LIMITE_DOSAQUE and saque <= saldo:
-        saldo -= saque
-        numeros_saques += 1
-        verificador = 1
-        print(f'Saque de R$ {saque} realizado com sucesso.')
-
     elif numeros_saques >= LIMITE_DESAQUES:
         print(f'Você ja excedeu o limite diário de {LIMITE_DESAQUES} saques.')
         verificador = 0
@@ -55,6 +50,12 @@ def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques
     elif saque > saldo:
         print(f'Você não pode sacar um valor maior que o saldo atual de R$ {saldo:.2f}.')
         verificador = 0
+
+    elif numeros_saques < LIMITE_DESAQUES and saque <= LIMITE_DOSAQUE and saque <= saldo:
+        saldo -= saque
+        numeros_saques += 1
+        verificador = 1
+        print(f'Saque de R$ {saque} realizado com sucesso.')
     
     return saldo, saque, numeros_saques, verificador
 
@@ -81,8 +82,8 @@ while True:
 
         for transacao in extrato:
             print(f'{transacao}')
-
-        print('\n')
+        
+        print(f'Saldo: R$ {saldo}\n')
 
     elif opcao == 'Q' or opcao == 'q':
         break
