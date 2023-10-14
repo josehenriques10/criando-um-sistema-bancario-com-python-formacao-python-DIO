@@ -35,7 +35,10 @@ def atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques
 
     saque = int(input('R$ '))
     
-    if numeros_saques < LIMITE_DESAQUES and saque <= LIMITE_DOSAQUE and saque <= saldo:
+    if saque <= 0:
+        print('O valor que você está tentando sacar e inválido.')
+    
+    elif numeros_saques < LIMITE_DESAQUES and saque <= LIMITE_DOSAQUE and saque <= saldo:
         saldo -= saque
         numeros_saques += 1
         verificador = 1
