@@ -1,94 +1,170 @@
-menu = '''
-[D] Depositar
-[S] Sacar
-[E] Extrato
-[Q] Sair
+def menu():
+    menu = '''
+    [1] Depositar
+    [2] Sacar
+    [3] Extrato
+    [4] Nova Conta
+    [5] Listar Contas
+    [6] Novo Usuário
+    [0] Sair
 
-? '''
+    ? '''
 
-saldo = 0
-deposito = 0
-saque = 0
-numeros_saques = 0
-extrato = []
-verificador = 0
-LIMITE_DESAQUES = 3
-LIMITE_DOSAQUE = 500
+    return int(input(menu))
 
-def atualiza_saldo_deposito(saldo, deposito, verificador):
 
-    deposito = int(input('R$ '))
+def depositar(saldo, deposito, verificador, /):
+    deposito = float(input('\nR$ '))
 
     if deposito >= 100:
         saldo += deposito
         verificador = 1
-    
+
     else:
         print('O valor mínimo para se fazer um depósito é de R$ 100,00.')
         verificador = 0
 
     return saldo, deposito, verificador
 
-def atualiza_saldo_saque(saldo, saque, numeros_saques, verificador):
 
-    saque = int(input('R$ '))
-    
+def sacar(
+        *, saldo, 
+        saque, 
+        numeros_saques, 
+        verificador, 
+        LIMITE_SAQUES, 
+        LIMITE_SAQUE
+    ):
+    saque = float(input('\nR$ '))
+
     if saque <= 0:
         print('O valor que você está tentando sacar e inválido.')
         verificador = 0
-    
-    elif numeros_saques >= LIMITE_DESAQUES:
-        print(f'Você ja excedeu o limite diário de {LIMITE_DESAQUES} saques.')
-        verificador = 0
-    
-    elif saque > LIMITE_DOSAQUE :
-        print(f'O limite do valor do saque para sua conta é de: R$ {LIMITE_DOSAQUE:.2f}.')
-        verificador = 0
-    
-    elif saque > saldo:
-        print(f'Você não pode sacar um valor maior que o saldo atual de R$ {saldo:.2f}.')
+
+    elif numeros_saques >= LIMITE_SAQUES:
+        print(f'Você ja excedeu o limite de {LIMITE_SAQUES} saques diários.')
         verificador = 0
 
-    elif numeros_saques < LIMITE_DESAQUES and saque <= LIMITE_DOSAQUE and saque <= saldo:
+    elif saque > LIMITE_SAQUE :
+        print(
+            f'O limite do valor do saque para sua conta é de: R$ '
+            f'{LIMITE_SAQUE:.2f}.'
+        )
+        verificador = 0
+
+    elif saque > saldo:
+        print(
+            f'Você não pode sacar um valor maior que o saldo atual de '
+            f'R$ {saldo:.2f}.'
+        )
+        verificador = 0
+
+    elif(
+            numeros_saques < LIMITE_SAQUES 
+            and saque <= LIMITE_SAQUE 
+            and saque <= saldo
+        ):
         saldo -= saque
         numeros_saques += 1
         verificador = 1
         print(f'Saque de R$ {saque} realizado com sucesso.')
-    
+
     return saldo, saque, numeros_saques, verificador
 
-def extrato_bancario():
 
-    print('EXTRATO...\n')
-
-    for transacao in extrato:
-        print(f'{transacao}')
-        
-    print(f'\n')
-
-while True:
-
-    print(f'Saldo: R$ {saldo:.2f}')
-    opcao = input(menu)
-
-    if opcao == 'D' or opcao == 'd':
-        saldo, deposito, verificador = atualiza_saldo_deposito(saldo=saldo, deposito=deposito, verificador=verificador)
-
-        if verificador == 1:
-            extrato.append(f'+ R$ {deposito:.2f}')
-
-    elif opcao == 'S' or opcao == 's':
-        saldo, saque, numeros_saques, verificador = atualiza_saldo_saque(saldo=saldo, saque=saque, numeros_saques=numeros_saques, verificador=verificador)
-
-        if verificador == 1:
-            extrato.append(f'- R$ {saque:.2f}')
-
-    elif opcao == 'E' or opcao == 'e':
-        extrato_bancario()
-
-    elif opcao == 'Q' or opcao == 'q':
-        break
-
-    else:
-        print('Operação inválida, por favor selecione novamente a operação desejada.')
+def exibir_extrato(saldo, extrato, deposito, saque, /, *, verificador, opcao):
     
+    if verificador == 1 and opcao == 1:
+            extrato.append(f' + R$ {deposito:.2f}')
+    
+    elif verificador == 1 and opcao == 2:
+            extrato.append(f' - R$ {saque:.2f}')
+
+    elif opcao == 3:
+        print('\n==== EXTRATO ====\n')
+
+        for transacao in extrato:
+            print(f'{transacao}')
+        print(f'\n Saldo: {saldo:.2f}')
+        print(f'\n=================\n')
+
+
+def main():
+    saldo          = 0
+    deposito       = 0
+    saque          = 0
+    numeros_saques = 0
+    extrato        = []
+    verificador    = 0
+
+    LIMITE_SAQUE   = 500
+    LIMITE_SAQUES  = 3
+
+    while True:
+        print(f'\nSaldo: R$ {saldo:.2f}')
+        opcao = menu()
+
+        if opcao == 1:
+            saldo, deposito, verificador = depositar(
+                saldo, 
+                deposito, 
+                verificador,
+            )
+
+            exibir_extrato(
+                saldo, 
+                extrato, 
+                deposito, saque, 
+                verificador=verificador, 
+                opcao=opcao
+            )
+
+        elif opcao == 2:
+            saldo, saque, numeros_saques, verificador = sacar(
+                saldo=saldo, 
+                saque=saque, 
+                numeros_saques=numeros_saques, 
+                verificador=verificador,
+                LIMITE_SAQUES=LIMITE_SAQUES,
+                LIMITE_SAQUE=LIMITE_SAQUE
+            )
+            
+            exibir_extrato(
+                saldo, 
+                extrato, 
+                deposito, 
+                saque, 
+                verificador=verificador, 
+                opcao=opcao
+            )
+
+        elif opcao == 3:
+            exibir_extrato(
+                saldo, 
+                extrato, 
+                deposito, 
+                saque, 
+                verificador=verificador, 
+                opcao=opcao
+            )
+
+        elif opcao == 4:
+            print()
+
+        elif opcao == 5:
+            print()
+
+        elif opcao == 6:
+            print()
+
+        elif opcao == 0:
+            break
+
+        else:
+            print(
+                'Operação inválida, por favor selecione novamente a '
+                'operação desejada.'
+            )
+          
+
+main()
