@@ -47,8 +47,8 @@ def sacar(
 
     elif saque > LIMITE_SAQUE :
         print(
-            f'O limite do valor do saque para sua conta é de: R$ '
-            f'{LIMITE_SAQUE:.2f}.'
+            f'O limite do valor do saque para sua conta é de: '
+            f'R$ {LIMITE_SAQUE:.2f}.'
         )
         verificador = 0
 
@@ -73,7 +73,6 @@ def sacar(
 
 
 def exibir_extrato(saldo, extrato, deposito, saque, /, *, verificador, opcao):
-    
     if verificador == 1 and opcao == 1:
             extrato.append(f' + R$ {deposito:.2f}')
     
@@ -89,16 +88,39 @@ def exibir_extrato(saldo, extrato, deposito, saque, /, *, verificador, opcao):
         print(f'\n=================\n')
 
 
-def main():
-    saldo          = 0
-    deposito       = 0
-    saque          = 0
-    numeros_saques = 0
-    extrato        = []
-    verificador    = 0
+def criar_usuario(usuarios):
+    cpf = input('Informe o CPF (somente números): ')
+    nome = input('Nome: ')
+    data_nascimento = input('Data de nascimento: ')
+    endereco = input('Endereço: ')
+    usuarios.append(
+        {
+            cpf: {
+                'nome': nome, 
+                'data_nascimento': data_nascimento, 
+                'endereco': endereco
+            }
+        }
+    )
+    print(**usuarios)
+    #return usuarios
 
-    LIMITE_SAQUE   = 500
-    LIMITE_SAQUES  = 3
+
+#def filtrar_usuario():
+
+
+def main():
+    saldo = 0
+    deposito = 0
+    saque = 0
+    numeros_saques = 0
+    extrato = []
+    usuarios = []
+    contas = []
+    verificador = 0
+
+    LIMITE_SAQUE = 500
+    LIMITE_SAQUES = 3
 
     while True:
         print(f'\nSaldo: R$ {saldo:.2f}')
@@ -155,7 +177,7 @@ def main():
             print()
 
         elif opcao == 6:
-            print()
+            usuarios = criar_usuario(usuarios)
 
         elif opcao == 0:
             break
