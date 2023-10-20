@@ -27,14 +27,14 @@ def depositar(saldo, deposito, verificador, /):
     return saldo, deposito, verificador
 
 
-def sacar(
-        *, saldo, 
-        saque, 
-        numeros_saques, 
-        verificador, 
-        LIMITE_SAQUES, 
-        LIMITE_SAQUE
-    ):
+def sacar(*, 
+    saldo, 
+    saque, 
+    numeros_saques, 
+    verificador, 
+    LIMITE_SAQUES, 
+    LIMITE_SAQUE
+):
     saque = float(input('\nR$ '))
 
     if saque <= 0:
@@ -59,11 +59,11 @@ def sacar(
         )
         verificador = 0
 
-    elif(
-            numeros_saques < LIMITE_SAQUES 
-            and saque <= LIMITE_SAQUE 
-            and saque <= saldo
-        ):
+    elif (
+        numeros_saques < LIMITE_SAQUES 
+        and saque <= LIMITE_SAQUE 
+        and saque <= saldo
+    ):
         saldo -= saque
         numeros_saques += 1
         verificador = 1
@@ -89,24 +89,20 @@ def exibir_extrato(saldo, extrato, deposito, saque, /, *, verificador, opcao):
 
 
 def criar_usuario(usuarios):
-    cpf = input('Informe o CPF (somente números): ')
+    print('IFORME OS DADOS NECESSÁRIOS\n')
+    cpf = input('CPF (somente números): ')
     nome = input('Nome: ')
     data_nascimento = input('Data de nascimento: ')
     endereco = input('Endereço: ')
-    usuarios.append(
-        {
-            cpf: {
-                'nome': nome, 
-                'data_nascimento': data_nascimento, 
-                'endereco': endereco
-            }
-        }
-    )
-    print(**usuarios)
+    usuarios.append({'clientes': {'cpf': cpf, 'nome': nome, 'data_nascimento': data_nascimento, 'endereco': endereco}})
+    print(*usuarios)
     #return usuarios
 
 
-#def filtrar_usuario():
+def filtrar_usuario():
+    if usuarios[0]['clientes']['cpf'] ==  cpf
+        print('CPF já em uso! Verifque os números e tente novamente.')
+
 
 
 def main():
@@ -118,7 +114,6 @@ def main():
     usuarios = []
     contas = []
     verificador = 0
-
     LIMITE_SAQUE = 500
     LIMITE_SAQUES = 3
 
