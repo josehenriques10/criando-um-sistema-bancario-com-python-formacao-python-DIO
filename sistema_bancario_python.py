@@ -89,21 +89,36 @@ def exibir_extrato(saldo, extrato, deposito, saque, /, *, verificador, opcao):
 
 
 def criar_usuario(usuarios):
-    print('IFORME OS DADOS NECESSÁRIOS\n')
+    print('IFORME OS DADOS NECESSÁRIOS (Completos)\n')
     cpf = input('CPF (somente números): ')
-    nome = input('Nome: ')
-    data_nascimento = input('Data de nascimento: ')
-    endereco = input('Endereço: ')
-    usuarios.append({'clientes': {'cpf': cpf, 'nome': nome, 'data_nascimento': data_nascimento, 'endereco': endereco}})
-    print(*usuarios)
-    #return usuarios
+    usuario = filtrar_usuario(usuarios=usuarios, cpf=cpf)
 
-
-def filtrar_usuario():
-    if usuarios[0]['clientes']['cpf'] ==  cpf
+    if usuario:
         print('CPF já em uso! Verifque os números e tente novamente.')
 
+    nome = input('Nome: ')
+    data_nascimento = input('Data de nascimento (DD-MM-AAAA): ')
+    endereco = input('Endereço: ')
+    usuarios.append(
+                {
+                    'cpf': cpf, 
+                    'nome': nome, 
+                    'data_nascimento': data_nascimento, 
+                    'endereco': endereco
+                }
+            )
+    
+    print('Usuário adicionado com sucesso!')
+    
+    return usuarios
 
+
+def filtrar_usuario(*, usuarios, cpf):
+    usuarios_filtrados = [
+        usuario for usuario in usuarios if usuario["cpf"] == cpf
+    ]
+    return usuarios_filtrados[0] if usuarios_filtrados else None
+        
 
 def main():
     saldo = 0
