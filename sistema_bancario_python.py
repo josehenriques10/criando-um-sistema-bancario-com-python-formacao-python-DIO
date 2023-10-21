@@ -143,7 +143,7 @@ def listar_contas(*, contas):
     for conta in contas:
         listando_contas = f'''\
             Agência:\t{conta['agencia']}
-            Conta:\t{conta['conta']}
+            Conta:\t\t{conta['conta']}
             Titular:\t{conta['usuario']['nome']}
         '''
         print("=" * 100)
