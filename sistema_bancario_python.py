@@ -30,7 +30,8 @@ def depositar(saldo, deposito, verificador, /):
     return saldo, deposito, verificador
 
 
-def sacar(*, 
+def sacar(
+    *, 
     saldo, 
     saque, 
     numeros_saques, 
