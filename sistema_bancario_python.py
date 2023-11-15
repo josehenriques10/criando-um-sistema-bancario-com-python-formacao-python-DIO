@@ -1,4 +1,37 @@
 import textwrap
+from abc import ABC, abstractclassmethod, abstractproperty
+
+
+class Cliente:
+    pass
+
+
+class PessoFisica(Cliente):
+    pass
+
+
+class Conta:
+    pass
+
+
+class ContaCorrente(Conta):
+    pass
+
+
+class Historico:
+    pass
+
+
+class Transacao(ABC):
+    pass
+
+
+class Saque(Transacao):
+    pass
+
+
+class Deposito(Transacao):
+    pass
 
 
 def menu():
