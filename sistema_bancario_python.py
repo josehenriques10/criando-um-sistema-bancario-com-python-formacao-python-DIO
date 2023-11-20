@@ -3,15 +3,57 @@ from abc import ABC, abstractclassmethod, abstractproperty
 
 
 class Cliente:
-    pass
+    def __init__(self, endereco):
+        self.endereco = endereco
+        self.conta = []
+
+    def realizar_transacao(self):
+        transacao.append(conta)
+
+    def adicionar_conta(self, conta):
+        self.contas.append(conta)
 
 
 class PessoFisica(Cliente):
-    pass
+    def __init__(self, nome, data_nascimento, cpf, endereco):
+        super().__init__(endereco)
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.cpf = cpf
+        
 
 
 class Conta:
-    pass
+    def __init__(self, cliente, numero):
+        self.saldo = 0
+        self.numero = numero
+        self.agencia = '0001'
+        self.cliente = cliente
+        self.historico = Historico()
+
+    @classmethod
+    def nova_conta(self):
+        return cls(cliente, numero)
+    
+    @property
+    def saldo(self):
+        return self.saldo
+    
+    @property
+    def numero(self):
+        return self.numero
+    
+    @property
+    def agencia(self):
+        return self.agencia
+    
+    @property
+    def cliente(self):
+        return self.cliente
+    
+    @property
+    def historico(self):
+        return self.historico
 
 
 class ContaCorrente(Conta):
@@ -51,8 +93,9 @@ def menu():
 
 def depositar(saldo, deposito, verificador, /):
     deposito = float(input('\nR$ '))
+    valor_minimo = deposito >= 100
 
-    if deposito >= 100:
+    if valor_minimo:
         saldo += deposito
         verificador = 1
 
@@ -74,22 +117,27 @@ def sacar(
 ):
     saque = float(input('\nR$ '))
 
-    if saque <= 0:
+    valor_invalido = saque <= 0
+    excedeu_limite_saques = numeros_saques >= LIMITE_SAQUES
+    excedeu_limite = saque > LIMITE_SAQUE
+    excedeu_saldo = saque > saldo
+
+    if valor_invalido:
         print('O valor que você está tentando sacar e inválido.')
         verificador = 0
 
-    elif numeros_saques >= LIMITE_SAQUES:
+    elif excedeu_limite_saques:
         print(f'Você ja excedeu o limite de {LIMITE_SAQUES} saques diários.')
         verificador = 0
 
-    elif saque > LIMITE_SAQUE :
+    elif excedeu_limite:
         print(
             f'O limite do valor do saque para sua conta é de: '
             f'R$ {LIMITE_SAQUE:.2f}.'
         )
         verificador = 0
 
-    elif saque > saldo:
+    elif excedeu_saldo:
         print(
             f'Você não pode sacar um valor maior que o saldo atual de '
             f'R$ {saldo:.2f}.'
